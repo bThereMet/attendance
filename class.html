@@ -12,18 +12,64 @@
 		<!-- Header -->
 			<section id="header">
 				<header>
-					<h1>bThere: Log In</h1>
+					<h1>bThere: Prove Attendance</h1>
 					<p>Unhackable Attendance Tracker</p>
-					<form method="get" action="mainpage.html">
-						<p>Class Name: <div class="col-6 col-12-mobile"><input type="text" class="text" name="name" placeholder="Name" /></div></p>
-						<p>Password: <div class="col-6 col-12-mobile"><input type="text" class="text" name="password" placeholder="Password" /></div></p>
-						<div class="col-12">
-							<ul class="actions">
-								<li><input type="submit" value="Log In" /></li>
-							</ul>
-						</div>
-					</form>
 				</header>
+				<body>
+					<p>Click to Confirm Location and Fill out Form:</p>
+
+<button onclick="getLocation()">Attend</button>
+
+
+<p id="demo"></p>
+
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position) {
+
+    // CHANGE THESE COORDINATES FOR CHOU HALL
+    // CURRENTLY UNIT 1 COORDS
+    Chou_lat = 37.8722
+    Chou_long = -122.2546
+
+    //x.innerHTML = "Latitude: " + position.coords.latitude +
+    //"<br>Longitude: " + position.coords.longitude;
+
+		//const he = "<iframe> src='https://docs.google.com/forms/d/e/1FAIpQLSe1cxzTTzW8CtSzD3plSiUbFd4efcqw7KAZn53NzLgeylXg3A/viewform?embedded=true' width='640' height='699' frameborder='0' marginheight='0' marginwidth='0'>Loading...</iframe>";
+    if (Math.abs(position.coords.latitude - Chou_lat) <= Math.pow(10, -3) && Math.abs(position.coords.longitude - Chou_long) <= Math.pow(10, -3)){
+			x.innerHTML += "<iframe src='https://docs.google.com/forms/d/e/1FAIpQLSdG-MFTG8NdsBhZSZ7FEYgG5KPf2f2BEgLfXt9qIw40c4MQIw/viewform?embedded=true' width='640' height='699' frameborder='0' marginheight='0' marginwidth='0'>Loading...</iframe>";
+		}
+
+}
+
+function showError(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            x.innerHTML = "User denied the request for Geolocation."
+            break;
+        case error.POSITION_UNAVAILABLE:
+            x.innerHTML = "Location information is unavailable."
+            break;
+        case error.TIMEOUT:
+            x.innerHTML = "The request to get user location timed out."
+            break;
+        case error.UNKNOWN_ERROR:
+            x.innerHTML = "An unknown error occurred."
+            break;
+    }
+}
+</script>
+
+</body>
 			</section>
 
 
